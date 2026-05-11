@@ -1,3 +1,6 @@
+is page ko mobile friendly bana do
+make sure ke tumney koi change nai ki sirf is page ko mobile friendly banya
+NO change
 <!DOCTYPE html>
 <html lang="et">
 <head>
@@ -7,119 +10,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-           /* ───────── MOBILE OPTIMIZATION (NO DESIGN CHANGE) ───────── */
-@media (max-width: 768px) {
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* NAV */
-    nav {
-        padding: 0 4%;
-        height: 64px;
-    }
+        :root {
+            --navy:    #0B1F3A;
+            --steel:   #1A3A5C;
+            --amber:   #E8973A;
+            --gold:    #F5C518;
+            --offwhite:#F4F1EB;
+            --light:   #FFFFFF;
+            --text:    #2C2C2C;
+            --muted:   #6B7A8D;
+        }
 
-    nav ul {
-        gap: 0.8rem;
-    }
+        html { scroll-behavior: smooth; }
 
-    nav ul li a {
-        font-size: 0.8rem;
-    }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--offwhite);
+            color: var(--text);
+            overflow-x: hidden;
+        }
 
-    .logo {
-        font-size: 1.1rem;
-    }
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%;
+            height: 70px;
+            background: rgba(11,31,58,0.96);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+            animation: slideDown 0.7s cubic-bezier(.22,1,.36,1) both;
+            transition: height 0.3s;
+        }
 
-    /* HERO */
-    .page-hero {
-        min-height: 260px;
-        padding: 0 5% 2.5rem;
-    }
+        nav.scrolled { height: 58px; background: rgba(11,31,58,0.99); }
 
-    .page-hero-content h1 {
-        font-size: 1.8rem;
-    }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
+        }
 
-    /* CONTACT SECTION */
-    .contact-section {
-        padding: 3rem 5%;
-        gap: 2rem;
-    }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--amber);
+            letter-spacing: 0.5px;
+        }
 
-    /* INFO CARDS */
-    .info-card {
-        padding: 1.2rem;
-    }
+        nav ul { list-style: none; display: flex; gap: 2rem; }
 
-    .info-card-icon {
-        width: 40px;
-        height: 40px;
-    }
+        nav ul li a {
+            color: #CBD5E1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+        }
 
-    /* MAP */
-    .map-card iframe {
-        height: 300px;
-    }
-
-    .map-card-header {
-        padding: 1rem 1.2rem;
-    }
-
-    .map-card-footer {
-        padding: 0.9rem 1.2rem;
-    }
-
-    /* CTA */
-    .cta-strip {
-        padding: 3rem 5%;
-    }
-
-    .cta-strip p {
-        font-size: 0.9rem;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 0.85rem;
-    }
-
-    /* FOOTER */
-    footer {
-        padding: 3rem 5% 1.5rem;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    /* FLOAT BUTTON */
-    .floating-call {
-        width: 50px;
-        height: 50px;
-        font-size: 1.1rem;
-        bottom: 20px;
-        right: 20px;
-    }
-}
-
-/* EXTRA SMALL DEVICES */
-@media (max-width: 480px) {
-
-    nav ul {
-        display: none; /* clean mobile look (no layout break) */
-    }
-
-    .page-hero-content h1 {
-        font-size: 1.5rem;
-    }
-
-    .info-heading h2 {
-        font-size: 1.4rem;
-    }
-
-    .map-card iframe {
-        height: 260px;
-    }
-}
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--amber);
+            border-bottom-color: var(--amber);
+        }
 
         /* ── PAGE HERO ── */
         .page-hero {
