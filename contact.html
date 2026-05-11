@@ -76,6 +76,16 @@
             border-bottom-color: var(--amber);
         }
 
+        /* Hamburger Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--amber);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         /* ── PAGE HERO ── */
         .page-hero {
             min-height: 340px;
@@ -449,15 +459,31 @@
             50%       { box-shadow: 0 6px 40px rgba(232,151,58,0.85), 0 0 0 14px rgba(232,151,58,0.12); }
         }
 
-        /* ───────── MOBILE OPTIMIZATIONS (ADDED WITHOUT CHANGING DESIGN) ───────── */
+        /* ───────── MOBILE OPTIMIZATIONS ───────── */
         @media (max-width: 992px) {
             .contact-section { grid-template-columns: 1fr; gap: 3rem; }
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--navy);
+                padding: 1rem 5%;
+                gap: 1rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+
+            nav ul.active { display: flex; }
+
             nav { height: 60px; padding: 0 4%; }
-            nav ul { display: none; } /* Mobile par menu simplify kiya */
             .logo { font-size: 1.1rem; }
             
             .page-hero { min-height: 280px; padding: 0 5% 3rem; }
@@ -476,7 +502,7 @@
             .info-card { padding: 1.2rem; gap: 0.8rem; }
             .info-card-icon { width: 40px; height: 40px; }
             .info-card-body h4 { font-size: 0.9rem; }
-            .map-card-header .map-badge { display: none; } /* Space bachanay ke liye */
+            .map-card-header .map-badge { display: none; }
         }
     </style>
 </head>
@@ -485,7 +511,8 @@
     <!-- Navigation -->
     <nav id="mainNav">
         <div class="logo">Pro Roofers Building</div>
-        <ul>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <ul id="navLinks">
             <li><a href="index.html">Avaleht</a></li>
             <li><a href="about.html">Meist</a></li>
             <li><a href="contact.html" class="active">Kontakt</a></li>
@@ -624,6 +651,17 @@
     </a>
 
     <script>
+        // Menu Toggle Logic
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
         // Nav shrink on scroll
         const nav = document.getElementById('mainNav');
         window.addEventListener('scroll', () => {
