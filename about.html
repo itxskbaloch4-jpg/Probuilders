@@ -76,7 +76,7 @@
             border-bottom-color: var(--amber);
         }
 
-        /* ── MOBILE NAV ── */
+        /* ── MOBILE NAV TOGGLE ── */
         .nav-toggle {
             display: none;
             flex-direction: column;
@@ -85,6 +85,7 @@
             padding: 4px;
             background: none;
             border: none;
+            z-index: 1001;
         }
 
         .nav-toggle span {
@@ -100,34 +101,29 @@
         .nav-toggle.open span:nth-child(2) { opacity: 0; }
         .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        @media (max-width: 640px) {
+        /* ── RESPONSIVE NAV ── */
+        @media (max-width: 768px) {
             .nav-toggle { display: flex; }
 
             nav ul {
                 position: fixed;
-                top: 70px; left: 0; right: 0;
-                background: rgba(11,31,58,0.98);
+                top: 0; right: -100%;
+                width: 70%; height: 100vh;
+                background: var(--navy);
                 flex-direction: column;
-                gap: 0;
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.3);
             }
 
-            nav ul.open {
-                max-height: 300px;
-                padding: 1rem 0;
-            }
+            nav ul.open { right: 0; }
 
             nav ul li a {
-                display: block;
-                padding: 0.85rem 5%;
+                font-size: 1.2rem;
                 border-bottom: none;
-                font-size: 1rem;
             }
-
-            .logo { font-size: 1.15rem; }
         }
 
         /* ── PAGE HERO ── */
@@ -194,9 +190,11 @@
             align-items: center;
         }
 
-        @media (max-width: 860px) {
-            .about-seo { grid-template-columns: 1fr; gap: 2.5rem; }
-            nav ul { gap: 1.2rem; }
+        @media (max-width: 992px) {
+            .about-seo { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+            .about-highlights { transform: none !important; opacity: 1 !important; }
+            .about-text-col { transform: none !important; opacity: 1 !important; text-align: left; }
+            .highlight-card { text-align: left; }
         }
 
         .about-text-col {
@@ -226,18 +224,11 @@
             margin-bottom: 1.3rem;
         }
 
-        .about-text-col h2 span { color: var(--amber); }
-
         .about-text-col p {
             font-size: 0.97rem;
             color: var(--muted);
             line-height: 1.8;
             margin-bottom: 1rem;
-        }
-
-        .about-text-col p strong {
-            color: var(--navy);
-            font-weight: 600;
         }
 
         .about-highlights {
@@ -261,8 +252,7 @@
             border: 1px solid rgba(11,31,58,0.07);
             box-shadow: 0 4px 16px rgba(11,31,58,0.06);
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s, border-color 0.3s;
+            transition: 0.3s;
         }
 
         .highlight-card::before {
@@ -271,12 +261,6 @@
             width: 4px; height: 100%;
             background: linear-gradient(180deg, var(--amber), var(--gold));
             border-radius: 4px 0 0 4px;
-        }
-
-        .highlight-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 36px rgba(11,31,58,0.11);
-            border-color: rgba(232,151,58,0.25);
         }
 
         .highlight-icon {
@@ -296,12 +280,6 @@
             margin-bottom: 3px;
         }
 
-        .highlight-body p {
-            font-size: 0.86rem;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
         /* ── STATS BAR ── */
         .stats-bar {
             background: var(--navy);
@@ -311,74 +289,17 @@
             flex-wrap: wrap;
         }
 
-        .stat-item {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
+        .stat-item { text-align: center; opacity: 0; transform: translateY(24px); transition: 0.6s; }
         .stat-item.visible { opacity: 1; transform: translateY(0); }
-
-        .stat-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--amber);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.55);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 4px;
-        }
+        .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--amber); font-weight: 900; }
+        .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 1.5px; }
 
         /* ── GALLERY ── */
-        .gallery {
-            padding: 5.5rem 6%;
-            background: var(--offwhite);
-        }
-
-        .gallery-head {
-            text-align: center;
-            margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .gallery-head.visible { opacity: 1; transform: translateY(0); }
-
-        .gallery-head h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            font-weight: 900;
-            color: var(--navy);
-            margin-bottom: 0.6rem;
-        }
-
-        .gallery-head p {
-            font-size: 0.97rem;
-            color: var(--muted);
-            max-width: 480px;
-            margin: 0 auto;
-            line-height: 1.65;
-        }
-
+        .gallery { padding: 5.5rem 6%; }
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.2rem;
-        }
-
-        @media (max-width: 720px) {
-            .image-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 480px) {
-            .image-grid { grid-template-columns: 1fr; }
         }
 
         .gallery-item {
@@ -387,196 +308,40 @@
             overflow: hidden;
             aspect-ratio: 4/3;
             background: var(--steel);
-            box-shadow: 0 4px 20px rgba(11,31,58,0.1);
             opacity: 0;
-            transform: translateY(36px) scale(0.97);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(30px);
+            transition: 0.6s;
         }
 
-        .gallery-item.visible { opacity: 1; transform: translateY(0) scale(1); }
+        .gallery-item.visible { opacity: 1; transform: translateY(0); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
 
-        .gallery-item img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.55s cubic-bezier(.22,1,.36,1);
-        }
-
-        .gallery-item:hover img { transform: scale(1.08); }
-
-        .gallery-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(11,31,58,0.72) 0%, transparent 55%);
-            opacity: 0;
-            transition: opacity 0.35s;
-            display: flex; align-items: flex-end;
-            padding: 1.2rem;
-        }
-
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-
-        .gallery-overlay span {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--light);
-            letter-spacing: 0.3px;
-        }
-
-        /* ── CTA STRIP ── */
-        .cta-strip {
-            background: linear-gradient(135deg, var(--amber) 0%, var(--gold) 100%);
-            text-align: center;
-            padding: 4.5rem 6%;
-        }
-
-        .cta-strip h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-            font-weight: 900;
-            color: var(--navy);
-            margin-bottom: 0.9rem;
-        }
-
-        .cta-strip p {
-            font-size: 1rem;
-            color: rgba(11,31,58,0.7);
-            max-width: 460px;
-            margin: 0 auto 2rem;
-            line-height: 1.65;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 36px;
-            border-radius: 4px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
-        }
-
-        .btn-dark {
-            background: var(--navy);
-            color: var(--light);
-            box-shadow: 0 4px 20px rgba(11,31,58,0.3);
-        }
-
-        .btn-dark:hover {
-            background: var(--steel);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(11,31,58,0.4);
-        }
+        /* ── CTA ── */
+        .cta-strip { background: linear-gradient(135deg, var(--amber), var(--gold)); text-align: center; padding: 4rem 6%; }
+        .btn { display: inline-block; padding: 14px 36px; border-radius: 4px; font-weight: 600; text-decoration: none; transition: 0.3s; }
+        .btn-dark { background: var(--navy); color: var(--light); }
 
         /* ── FOOTER ── */
-        footer {
-            background: #071526;
-            color: rgba(255,255,255,0.7);
-            padding: 4rem 6% 2rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.4fr repeat(2, 1fr);
-            gap: 3rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 2rem;
-        }
-
-        @media (max-width: 720px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-        }
-
-        .footer-brand .logo {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .footer-brand p {
-            font-size: 0.88rem;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.5);
-            max-width: 280px;
-        }
-
-        .footer-col h5 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--light);
-            margin-bottom: 1.2rem;
-        }
-
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 0.65rem; }
-
-        .footer-col ul li a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 0.88rem;
-            transition: color 0.25s;
-        }
-
-        .footer-col ul li a:hover { color: var(--amber); }
-
-        .footer-contact-item {
-            display: flex; align-items: flex-start; gap: 0.7rem;
-            margin-bottom: 0.9rem;
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.5);
-        }
-
-        .footer-contact-item i {
-            color: var(--amber);
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-
-        .footer-bottom {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 0.8rem;
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.35);
-        }
-
-        .footer-bottom a { color: var(--amber); text-decoration: none; }
+        footer { background: #071526; color: rgba(255,255,255,0.7); padding: 4rem 6% 2rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem; }
 
         /* ── FLOATING CALL ── */
         .floating-call {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            width: 58px; height: 58px;
+            position: fixed; bottom: 20px; right: 20px;
+            width: 55px; height: 55px;
             background: linear-gradient(135deg, var(--amber), var(--gold));
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: var(--navy);
-            font-size: 1.35rem;
-            text-decoration: none;
-            box-shadow: 0 6px 24px rgba(232,151,58,0.55);
-            z-index: 999;
-            animation: pulse 2.2s ease-in-out infinite;
-            transition: transform 0.25s;
+            color: var(--navy); text-decoration: none; z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .floating-call:hover { transform: scale(1.12); }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 6px 24px rgba(232,151,58,0.55); }
-            50%       { box-shadow: 0 6px 40px rgba(232,151,58,0.85), 0 0 0 14px rgba(232,151,58,0.12); }
-        }
-
-        /* ── MOBILE GENERAL ── */
+        /* ── MOBILE OVERRIDES ── */
         @media (max-width: 480px) {
-            .page-hero { min-height: 280px; padding-bottom: 3.5rem; }
-            .about-seo { padding-top: 3.5rem; padding-bottom: 3.5rem; }
-            .gallery { padding: 3.5rem 5%; }
-            .cta-strip { padding: 3.5rem 5%; }
-            .stats-bar { gap: 1.8rem; padding: 2rem 5%; }
+            .page-hero { min-height: 300px; padding-bottom: 3rem; }
+            .stats-bar { gap: 1.5rem; }
             .stat-num { font-size: 1.8rem; }
-            .floating-call { bottom: 18px; right: 18px; width: 52px; height: 52px; font-size: 1.15rem; }
         }
     </style>
 </head>
@@ -603,15 +368,13 @@
         </div>
     </div>
 
-    <!-- About SEO Section -->
-    <section class="about-seo" style="padding-top:5.5rem; padding-bottom:5.5rem; max-width:1200px; margin:0 auto; padding-left:6%; padding-right:6%; display:grid; grid-template-columns:1fr 1.1fr; gap:4rem; align-items:center;">
-
+    <!-- About Section -->
+    <section class="about-seo">
         <div class="about-text-col" id="aboutText">
             <span class="section-tag">Kes Me Oleme</span>
             <h2>Pro Roofers Building OÜ — <span>Eesti Katusemeistrid</span></h2>
-            <p>Pro Roofers Building on Eesti juhtiv <strong>katusetööde ettevõte</strong>, mis on spetsialiseerunud kvaliteetsete katuste paigaldamisele ja hooldusele. Üle <strong>3 aasta kogemusega</strong> pakume vastupidavaid ja kestvaid katuselahendusi <strong>Võhmas, Viljandi maakonnas</strong>.</p>
-            <p>Alates <strong>rennide remondist</strong> kuni <strong>tormikahjustuste kõrvaldamiseni</strong> ja professionaalse katuse värvimiseni (Katuse Värvimine) — meie meeskond tagab, et teie kodu jääb turvaliseks ja esteetiliseks. Kasutame tipptasemel materjale, mis peavad vastu Eesti karmile ilmastikule.</p>
-            <p>Oleme usaldusväärne partner nii <strong>era- kui ärikinnisvara</strong> katusetöödel kogu Eestis.</p>
+            <p>Pro Roofers Building on Eesti juhtiv <strong>katusetööde ettevõte</strong>, mis on spetsialiseerunud kvaliteetsete katuste paigaldamisele. Üle <strong>3 aasta kogemusega</strong> pakume vastupidavaid lahendusi <strong>Võhmas</strong>.</p>
+            <p>Oleme usaldusväärne partner nii era- kui ärikinnisvara katusetöödel kogu Eestis.</p>
         </div>
 
         <div class="about-highlights" id="aboutHighlights">
@@ -619,93 +382,38 @@
                 <div class="highlight-icon"><i class="fas fa-medal"></i></div>
                 <div class="highlight-body">
                     <h4>3+ Aastat Kogemust</h4>
-                    <p>Aastaid tõestatud oskustega meeskond, kes on lõpetanud üle 200 projekti edukalt.</p>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <div class="highlight-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="highlight-body">
-                    <h4>Võhma, Viljandi Maakond</h4>
-                    <p>Kohalik ettevõte, mis tunneb hästi Eesti ehitusnõudeid ja ilmastikutingimusi.</p>
-                </div>
-            </div>
-            <div class="highlight-card">
-                <div class="highlight-icon"><i class="fas fa-leaf"></i></div>
-                <div class="highlight-body">
-                    <h4>Keskkonnasõbralikud Materjalid</h4>
-                    <p>Kasutame jätkusuutlikke ja kõrge kvaliteediga materjale iga projekti jaoks.</p>
+                    <p>Üle 200 edukalt lõpetatud projekti.</p>
                 </div>
             </div>
             <div class="highlight-card">
                 <div class="highlight-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="highlight-body">
                     <h4>Töögarantii</h4>
-                    <p>Kõigile tehtud töödele anname kirjaliku garantii — teie rahulolu on meie prioriteet.</p>
+                    <p>Kõigile tehtud töödele anname kirjaliku garantii.</p>
                 </div>
             </div>
         </div>
-
     </section>
 
     <!-- Stats Bar -->
     <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-num">3+</div>
-            <div class="stat-label">Aastat Kogemust</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-num">200+</div>
-            <div class="stat-label">Lõpetatud Projekti</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Rahul Kliendid</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-num">24/7</div>
-            <div class="stat-label">Hädaabi Teenus</div>
-        </div>
+        <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Aastat</div></div>
+        <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Projekti</div></div>
+        <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Rahulolu</div></div>
     </div>
 
     <!-- Gallery -->
     <section class="gallery">
-        <div class="gallery-head" id="galleryHead">
-            <span class="section-tag">Meie Tööd</span>
-            <h2>Tööobjektide Galerii</h2>
-            <p>Vaadake meie tehtud töid — iga projekt räägib ise oma kvaliteedist.</p>
-        </div>
         <div class="image-grid">
-            <div class="gallery-item" id="gi0">
-                <img src="274590326_1031202414138918_6152472122035395217_n.webp" alt="Katusetöö 1">
-                <div class="gallery-overlay"><span>Katusetöö — Projekt 1</span></div>
-            </div>
-            <div class="gallery-item" id="gi1">
-                <img src="unnamed (2).webp" alt="Katusetöö 2">
-                <div class="gallery-overlay"><span>Katusetöö — Projekt 2</span></div>
-            </div>
-            <div class="gallery-item" id="gi2">
-                <img src="unnamed (4).webp" alt="Katusetöö 3">
-                <div class="gallery-overlay"><span>Katusetöö — Projekt 3</span></div>
-            </div>
-            <div class="gallery-item" id="gi3">
-                <img src="unnamed (5).webp" alt="Katusetöö 4">
-                <div class="gallery-overlay"><span>Katusetöö — Projekt 4</span></div>
-            </div>
-            <div class="gallery-item" id="gi4">
-                <img src="unnamed (6).webp" alt="Katusetöö 5">
-                <div class="gallery-overlay"><span>Katusetöö — Projekt 5</span></div>
-            </div>
-            <div class="gallery-item" id="gi5">
-                <img src="unnamed (7).webp" alt="Katusetöö 6">
-                <div class="gallery-overlay"><span>Katusetöö — Projekt 6</span></div>
-            </div>
+            <div class="gallery-item"><img src="274590326_1031202414138918_6152472122035395217_n.webp" alt="Töö 1"></div>
+            <div class="gallery-item"><img src="unnamed (2).webp" alt="Töö 2"></div>
+            <div class="gallery-item"><img src="unnamed (4).webp" alt="Töö 3"></div>
         </div>
     </section>
 
-    <!-- CTA Strip -->
+    <!-- CTA -->
     <div class="cta-strip">
         <h2>Valmis Koostööks?</h2>
-        <p>Võtke meiega ühendust ja saage tasuta hinnapakkumine juba täna.</p>
         <a href="contact.html" class="btn btn-dark">Võta Ühendust</a>
     </div>
 
@@ -714,97 +422,52 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <span class="logo">Pro Roofers Building</span>
-                <p>Eesti usaldusväärne katusetööde partner. Kvaliteet, kiirus ja professionaalsus igal projektil.</p>
-            </div>
-            <div class="footer-col">
-                <h5>Kiirlingid</h5>
-                <ul>
-                    <li><a href="index.html">Avaleht</a></li>
-                    <li><a href="about.html">Meist</a></li>
-                    <li><a href="contact.html">Kontakt</a></li>
-                    <li><a href="contact.html">Küsi Pakkumist</a></li>
-                </ul>
+                <p>Eesti usaldusväärne katusetööde partner.</p>
             </div>
             <div class="footer-col">
                 <h5>Kontakt</h5>
-                <div class="footer-contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+372 5911 8252</span>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>info@proroofers.ee</span>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Aia tn 9, Võhma, Eesti</span>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fas fa-clock"></i>
-                    <span>E–R: 08:00 – 19:00</span>
-                </div>
+                <p>+372 5911 8252</p>
+                <p>info@proroofers.ee</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>© 2025 Pro Roofers Building. Kõik õigused kaitstud.</span>
-            <span>Tehtud armastusega <a href="#">Eestis</a></span>
-        </div>
+        <div class="footer-bottom">© 2026 Pro Roofers Building.</div>
     </footer>
 
-    <!-- Floating Call Button -->
-    <a href="tel:+37259118252" class="floating-call">
-        <i class="fas fa-phone"></i>
-    </a>
+    <a href="tel:+37259118252" class="floating-call"><i class="fas fa-phone"></i></a>
 
     <script>
-        // Nav shrink on scroll
-        const nav = document.getElementById('mainNav');
+        // Nav shrink
         window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 60);
+            document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Mobile nav toggle
+        // Mobile Toggle
         const navToggle = document.getElementById('navToggle');
-        const navMenu   = document.getElementById('navMenu');
+        const navMenu = document.getElementById('navMenu');
+
         navToggle.addEventListener('click', () => {
             navToggle.classList.toggle('open');
             navMenu.classList.toggle('open');
         });
-        navMenu.querySelectorAll('a').forEach(link => {
+
+        // Close menu on click
+        document.querySelectorAll('#navMenu a').forEach(link => {
             link.addEventListener('click', () => {
                 navToggle.classList.remove('open');
                 navMenu.classList.remove('open');
             });
         });
 
-        // Intersection Observer
+        // Intersection Observer for Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
 
-        ['aboutText','aboutHighlights','galleryHead'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
-        });
-
-        // Stats stagger
-        document.querySelectorAll('.stat-item').forEach((el, i) => {
-            setTimeout(() => observer.observe(el), i * 120);
-        });
-
-        // Gallery stagger
-        for (let i = 0; i < 6; i++) {
-            const el = document.getElementById('gi' + i);
-            if (el) {
-                el.style.transitionDelay = (i * 90) + 'ms';
-                observer.observe(el);
-            }
-        }
+        document.querySelectorAll('.about-text-col, .about-highlights, .stat-item, .gallery-item').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
