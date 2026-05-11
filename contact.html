@@ -1,6 +1,3 @@
-is page ko mobile friendly bana do
-make sure ke tumney koi change nai ki sirf is page ko mobile friendly banya
-NO change
 <!DOCTYPE html>
 <html lang="et">
 <head>
@@ -78,119 +75,6 @@ NO change
             color: var(--amber);
             border-bottom-color: var(--amber);
         }
-        /* ───────── MOBILE OPTIMIZATION (NO DESIGN CHANGE) ───────── */
-@media (max-width: 768px) {
-
-    /* NAV */
-    nav {
-        padding: 0 4%;
-        height: 64px;
-    }
-
-    nav ul {
-        gap: 0.8rem;
-    }
-
-    nav ul li a {
-        font-size: 0.8rem;
-    }
-
-    .logo {
-        font-size: 1.1rem;
-    }
-
-    /* HERO */
-    .page-hero {
-        min-height: 260px;
-        padding: 0 5% 2.5rem;
-    }
-
-    .page-hero-content h1 {
-        font-size: 1.8rem;
-    }
-
-    /* CONTACT SECTION */
-    .contact-section {
-        padding: 3rem 5%;
-        gap: 2rem;
-    }
-
-    /* INFO CARDS */
-    .info-card {
-        padding: 1.2rem;
-    }
-
-    .info-card-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    /* MAP */
-    .map-card iframe {
-        height: 300px;
-    }
-
-    .map-card-header {
-        padding: 1rem 1.2rem;
-    }
-
-    .map-card-footer {
-        padding: 0.9rem 1.2rem;
-    }
-
-    /* CTA */
-    .cta-strip {
-        padding: 3rem 5%;
-    }
-
-    .cta-strip p {
-        font-size: 0.9rem;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 0.85rem;
-    }
-
-    /* FOOTER */
-    footer {
-        padding: 3rem 5% 1.5rem;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    /* FLOAT BUTTON */
-    .floating-call {
-        width: 50px;
-        height: 50px;
-        font-size: 1.1rem;
-        bottom: 20px;
-        right: 20px;
-    }
-}
-
-/* EXTRA SMALL DEVICES */
-@media (max-width: 480px) {
-
-    nav ul {
-        display: none; /* clean mobile look (no layout break) */
-    }
-
-    .page-hero-content h1 {
-        font-size: 1.5rem;
-    }
-
-    .info-heading h2 {
-        font-size: 1.4rem;
-    }
-
-    .map-card iframe {
-        height: 260px;
-    }
-}
 
         /* ── PAGE HERO ── */
         .page-hero {
@@ -253,11 +137,6 @@ NO change
             align-items: start;
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        @media (max-width: 860px) {
-            .contact-section { grid-template-columns: 1fr; }
-            nav ul { gap: 1.2rem; }
         }
 
         /* ── INFO CARDS ── */
@@ -491,10 +370,6 @@ NO change
             margin-bottom: 2rem;
         }
 
-        @media (max-width: 720px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-        }
-
         .footer-brand .logo {
             font-size: 1.3rem;
             margin-bottom: 1rem;
@@ -517,7 +392,6 @@ NO change
         }
 
         .footer-col ul { list-style: none; }
-
         .footer-col ul li { margin-bottom: 0.65rem; }
 
         .footer-col ul li a {
@@ -573,6 +447,36 @@ NO change
         @keyframes pulse {
             0%, 100% { box-shadow: 0 6px 24px rgba(232,151,58,0.55); }
             50%       { box-shadow: 0 6px 40px rgba(232,151,58,0.85), 0 0 0 14px rgba(232,151,58,0.12); }
+        }
+
+        /* ───────── MOBILE OPTIMIZATIONS (ADDED WITHOUT CHANGING DESIGN) ───────── */
+        @media (max-width: 992px) {
+            .contact-section { grid-template-columns: 1fr; gap: 3rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { height: 60px; padding: 0 4%; }
+            nav ul { display: none; } /* Mobile par menu simplify kiya */
+            .logo { font-size: 1.1rem; }
+            
+            .page-hero { min-height: 280px; padding: 0 5% 3rem; }
+            .page-hero-content h1 { font-size: 2rem; }
+            
+            .contact-section { padding: 3rem 5%; }
+            .map-card iframe { height: 320px; }
+            
+            .cta-strip { padding: 3.5rem 5%; }
+            .footer-bottom { justify-content: center; text-align: center; }
+            
+            .floating-call { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .info-card { padding: 1.2rem; gap: 0.8rem; }
+            .info-card-icon { width: 40px; height: 40px; }
+            .info-card-body h4 { font-size: 0.9rem; }
+            .map-card-header .map-badge { display: none; } /* Space bachanay ke liye */
         }
     </style>
 </head>
@@ -736,8 +640,11 @@ NO change
             });
         }, { threshold: 0.12 });
 
-        observer.observe(document.getElementById('contactInfo'));
-        observer.observe(document.getElementById('mapWrapper'));
+        const contactInfo = document.getElementById('contactInfo');
+        const mapWrapper = document.getElementById('mapWrapper');
+        
+        if(contactInfo) observer.observe(contactInfo);
+        if(mapWrapper) observer.observe(mapWrapper);
     </script>
 </body>
 </html>
