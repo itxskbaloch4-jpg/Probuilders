@@ -78,6 +78,119 @@ NO change
             color: var(--amber);
             border-bottom-color: var(--amber);
         }
+        /* ───────── MOBILE OPTIMIZATION (NO DESIGN CHANGE) ───────── */
+@media (max-width: 768px) {
+
+    /* NAV */
+    nav {
+        padding: 0 4%;
+        height: 64px;
+    }
+
+    nav ul {
+        gap: 0.8rem;
+    }
+
+    nav ul li a {
+        font-size: 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    /* HERO */
+    .page-hero {
+        min-height: 260px;
+        padding: 0 5% 2.5rem;
+    }
+
+    .page-hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    /* CONTACT SECTION */
+    .contact-section {
+        padding: 3rem 5%;
+        gap: 2rem;
+    }
+
+    /* INFO CARDS */
+    .info-card {
+        padding: 1.2rem;
+    }
+
+    .info-card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* MAP */
+    .map-card iframe {
+        height: 300px;
+    }
+
+    .map-card-header {
+        padding: 1rem 1.2rem;
+    }
+
+    .map-card-footer {
+        padding: 0.9rem 1.2rem;
+    }
+
+    /* CTA */
+    .cta-strip {
+        padding: 3rem 5%;
+    }
+
+    .cta-strip p {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.85rem;
+    }
+
+    /* FOOTER */
+    footer {
+        padding: 3rem 5% 1.5rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* FLOAT BUTTON */
+    .floating-call {
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+@media (max-width: 480px) {
+
+    nav ul {
+        display: none; /* clean mobile look (no layout break) */
+    }
+
+    .page-hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .info-heading h2 {
+        font-size: 1.4rem;
+    }
+
+    .map-card iframe {
+        height: 260px;
+    }
+}
 
         /* ── PAGE HERO ── */
         .page-hero {
