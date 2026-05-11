@@ -76,6 +76,60 @@
             border-bottom-color: var(--amber);
         }
 
+        /* ── MOBILE NAV ── */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--amber);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        @media (max-width: 640px) {
+            .nav-toggle { display: flex; }
+
+            nav ul {
+                position: fixed;
+                top: 70px; left: 0; right: 0;
+                background: rgba(11,31,58,0.98);
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+            }
+
+            nav ul.open {
+                max-height: 300px;
+                padding: 1rem 0;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 0.85rem 5%;
+                border-bottom: none;
+                font-size: 1rem;
+            }
+
+            .logo { font-size: 1.15rem; }
+        }
+
         /* ── PAGE HERO ── */
         .page-hero {
             min-height: 360px;
@@ -513,6 +567,17 @@
             0%, 100% { box-shadow: 0 6px 24px rgba(232,151,58,0.55); }
             50%       { box-shadow: 0 6px 40px rgba(232,151,58,0.85), 0 0 0 14px rgba(232,151,58,0.12); }
         }
+
+        /* ── MOBILE GENERAL ── */
+        @media (max-width: 480px) {
+            .page-hero { min-height: 280px; padding-bottom: 3.5rem; }
+            .about-seo { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+            .gallery { padding: 3.5rem 5%; }
+            .cta-strip { padding: 3.5rem 5%; }
+            .stats-bar { gap: 1.8rem; padding: 2rem 5%; }
+            .stat-num { font-size: 1.8rem; }
+            .floating-call { bottom: 18px; right: 18px; width: 52px; height: 52px; font-size: 1.15rem; }
+        }
     </style>
 </head>
 <body>
@@ -520,7 +585,10 @@
     <!-- Navigation -->
     <nav id="mainNav">
         <div class="logo">Pro Roofers Building</div>
-        <ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menüü">
+            <span></span><span></span><span></span>
+        </button>
+        <ul id="navMenu">
             <li><a href="index.html">Avaleht</a></li>
             <li><a href="about.html" class="active">Meist</a></li>
             <li><a href="contact.html">Kontakt</a></li>
@@ -693,6 +761,20 @@
         const nav = document.getElementById('mainNav');
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu   = document.getElementById('navMenu');
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('open');
+            navMenu.classList.toggle('open');
+        });
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('open');
+                navMenu.classList.remove('open');
+            });
         });
 
         // Intersection Observer
